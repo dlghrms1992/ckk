@@ -171,7 +171,7 @@
         <div class="mypage" id="mypage">
             <button class="mypages" id="myinfo" onclick="location.href='<c:url value="/user/view?userId=${ memberLoggedIn.userId }"></c:url>'">내 정보 수정</button><br />
             <button class="mypages" id="point-charge" onclick="location.href='<c:url value="/point/pointManagement"></c:url>'">포인트 관리</button><br />
-            <button class="mypages" id="write-resume" onclick="<%="P".equals(memberLoggedIn.getResumeYNP()) ? "alert('이력서심사가 진행중입니다.')" : "location.href='" +request.getContextPath()+ "" +memberLoggedIn.getUserId()+"'" %>">이력서 관리</button><br />
+            <button class="mypages" id="write-resume" onclick="<%="P".equals(memberLoggedIn.getResumeYNP()) ? "alert('이력서심사가 진행중입니다.')" : "location.href='" +request.getContextPath()+ "/tutor/writerResume?" +memberLoggedIn.getUserId()+"'" %>">이력서 관리</button><br />
             <button class="mypages" id="write-review" onclick="writeReview();">리뷰 작성</button><br />
             <button class="mypages" id="get-msg" onclick="msg();">메세지</button><br />
             <button class="mypages" id="logout" onclick="location.href='<c:url value="/member/logout"></c:url>'">로그아웃</button>
