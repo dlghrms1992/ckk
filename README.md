@@ -54,6 +54,42 @@
   * CLASS의 고유 시퀀스값인 CLASS_NO를 Primary Key로 사용
 -------------------------------------------------------------------------------------
 ## 주요 기능(작성자 본인이 구현 기능 이주로 작성되었습니다.) 
+* Ajax 실시간 아이디 중복검사
+  * 아이디를 회원가입 input태그에 입력하게되면 입력된 아이디는 Model에서 Sevice DAO를 거쳐 DB에 아이디가 있는
+  * 지 검사를 한다. 아이디가 있다면 1 없다면 0을 return하게 controller에서 처리를 한 후 알맞은 결과값을 보낼 수 있게 된다.
+
+```javascript
+   /*아이디 실시간 중복검사  */
+	 $("#Id").blur(function(){
+		 var user_id = $('#Id').val();
+	
+		 $.ajax({
+			 url : '<%= request.getContextPath()%>/user/userIdCheck',
+			 type : 'get',
+			 data : {"checkId" : user_id},
+			 dataType:"text",
+			 success : function(data) {
+		
+				 console.log("1 = 중복 / 0 = 중복 x"+data);
+				 if(data == "true" && user_id != "" ) {
+					 $("#id_check").text("아이디가 이미 존재 합니다.");
+					 $("#id_check").css("color", "red");
+					 
+					 
+				 }else if(data == "false" && user_id != ""){
+					 $("#id_check").text("아이디 사용이 가능합니다.");
+					 $("#id_check").css("color", "blue");
+					 
+					 userIdCheck = true;
+				 }
+			 },
+			 error : function(xhr, textStatus, err){
+				 /* console.log("1 = 중복 / 0 = 중복 x"+data) ; */
+				 alert("에러입니다")
+				 console.log(xhr, textStatus, err);
+			 }
+			 });
+```
 * 이력서 관리
 
   * 회원 가입시 초기 상태는 일반 회원으로 가입되며, 튜터 등급으로 변경을 원할 경우 '이력서 관리' 메뉴를 통해 이력서를 제출, 심사에서 승인을 받게되면 튜터 등급으로 변경이 되게된다.
